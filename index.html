@@ -1,0 +1,63 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main>
+    <div class="side-menu">
+      <button>Add Semester</button>
+      <button>Add Semester</button>
+      <button>Add Semester</button>
+      <button>Add Semester</button>
+      <button>Add Semester</button>
+    </div>
+    <section class="gpcont">
+      <div class="gpcont-header">
+        <h3 class="semester">Semester <span class="semester-num">1</span></h3>
+        <p class="remove-semester">
+          &cross;
+        </p>
+      </div>
+
+
+      <div class="gptable">
+        <form class="gpitem">
+          <p>
+            <input type="text" name="course" class="gpa-item-input" placeholder="Course Name">
+          </p>
+          <p>
+            <select name="grade-select" class="grade-select">
+              <option value="--">Select Grade</option>
+              <option value="a">A</option>
+              <option value="b">B</option>
+              <option value="c">C</option>
+              <option value="d">D</option>
+              <option value="f">F</option>
+            </select>
+          </p>
+          <p>
+            <input type="text" name="credits" class="gpa-item-input" placeholder="Credits">
+          </p>
+        </form>
+      </div>
+        
+      <div class="gpcont-footer">
+        <div class="semester-gp">
+          <p>Semester&nbsp;<span class="semester-num">1&nbsp;</span>GPA:&nbsp;</p><span class="sem-gpa">0.00</span>
+        </div>
+        <button class="add-course">Add&nbsp;Course</button>
+      </div>
+
+    </section>
+
+  </main>
+  <script src="./script.js"></script>
+</body>
+
+</html>

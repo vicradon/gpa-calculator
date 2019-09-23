@@ -1,0 +1,102 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+body {
+    background-color: rgba(135, 207, 235, 0.438);
+}
+main {
+    display: grid;
+    grid-template-columns: 3fr 4fr 3fr;
+    /* grid-template-rows: 10vh 5fr; */
+}
+.side-menu {
+    display: flex;
+    flex-flow: column wrap;
+    width: 10vw;
+    background-color: white;
+    /* text-align: center; */
+    justify-content: space-around;
+    grid-row: span 10;
+}
+.side-menu button {
+    font-size: 0.7rem;
+    height: 2rem;
+    width: 4rem;
+}
+.gpcont {
+    grid-column: 2/3;
+    /* grid-row: auto/3; */
+    background-color: white;
+    box-shadow: 0 0 0.3rem 0.2rem #2f81a16e;
+    border-radius: 0.4rem;
+    margin: 2vh 0;
+}
+.gpcont-header{
+    display: flex;
+    padding: 1rem 1rem;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.remove-semester {
+    color: red;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.gptable {
+    display: flex;
+    flex-flow: column wrap;
+}
+.gpitem {
+    display: grid;
+    grid-template-columns: 2.5fr 2fr 1fr;
+    padding:0 1rem;
+}
+.gpitem p {
+    border: 1px solid #ccc;
+    /* text-align: center; */
+    padding: 0.3rem 1rem;
+    line-height: 2rem;
+}
+.gpcont-footer {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+.semester-gp {
+    padding: 1rem 1rem;
+    display: flex;
+}
+.sem-gpa {
+    padding-left: 0.5rem;
+    font-weight: bold;
+}
+.add-course {
+    border-radius: 1rem;
+    border: 1px solid skyblue;
+    background-color: white;
+    color: skyblue;
+    outline: 0;
+    cursor: pointer;
+    padding: 0.4rem 1rem;
+    margin: 1rem 2rem;
+}
+.add-course:hover {
+    background-color: skyblue;
+    color: white;
+}
+.add-course:active {
+    background-color: white;
+    color: skyblue;
+}
+.gpa-item-input, .grade-select {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+}
+.grade-select {
+    cursor: pointer;
+}
