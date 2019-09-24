@@ -18,13 +18,22 @@ function calculateGPA() {
   const gpa = (tnu / tgp).toFixed(2);
 }
 
-// function submit() {
-//   this.preventDefault();
-//   const gradeVal = { a: 5, b: 4, c: 3, d: 2, f: 1 }
-//   const e = this.querySelector('select');
-//   const SelectedGradeVal = e.options[e.selectedIndex].value;
-//   log(SelectedGradeVal)
-// }
+function addCourse() {
+  let clonedTemplate =  $('.course-table').cloneNode(true);
+  qs(clonedTemplate, $('.course-name')).textContent = '';
+  let semesterTable = table;
+  $('main').appendChild(semesterTable);
+  log("appended")
+}
+
+
+/* function submit() {
+  this.preventDefault();
+  const gradeVal = { a: 5, b: 4, c: 3, d: 2, f: 1 }
+  const e = this.querySelector('select');
+  const SelectedGradeVal = e.options[e.selectedIndex].value;
+  log(SelectedGradeVal)
+}
 
 $$('.gpitem').forEach(form => {
   form.addEventListener('submit', ev => {
@@ -35,16 +44,18 @@ $$('.gpitem').forEach(form => {
     log(SelectedGradeVal)
   })
 })
+*/
 
-let table = document.createDocumentFragment();
-(function tableCreator() {
-  let clonedTemplate = $('.gpcont').cloneNode(true);
-  table.appendChild(clonedTemplate);
-})();
-function addSemester(){
+function addSemester() {
+  let table = document.createDocumentFragment();
+  (function tableCreator() {
+    let clonedTemplate = $('.gpcont').cloneNode(true);
+    clonedTemplate.querySelector('.gpitem').reset();
+    table.appendChild(clonedTemplate);
+  })();
   let semesterTable = table;
   $('main').appendChild(semesterTable);
   log("appended")
 }
 
-$('.side-menu button').onclick = addSemester;
+$$('.add-semester').forEach(button => button.onclick = addSemester);

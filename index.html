@@ -11,11 +11,7 @@
 <body>
   <main>
     <div class="side-menu">
-      <button>Add Semester</button>
-      <button>Add Semester</button>
-      <button>Add Semester</button>
-      <button>Add Semester</button>
-      <button>Add Semester</button>
+      <button class="add-semester">Add Semester</button>
     </div>
     <section class="gpcont">
       <div class="gpcont-header">
@@ -29,7 +25,7 @@
       <div class="gptable">
         <form class="gpitem">
           <p>
-            <input type="text" name="course" class="gpa-item-input" placeholder="Course Name">
+            <input id="course" type="text" name="course" class="gpa-item-input" placeholder="Course Name">
           </p>
           <p>
             <select name="grade-select" class="grade-select">
@@ -44,9 +40,19 @@
           <p>
             <input type="text" name="credits" class="gpa-item-input" placeholder="Credits">
           </p>
+          <div style="visibility: visible" class="course-table">
+            <div class="course-table-items">
+              <p class="course-name"></p>
+              <p class="course-grade"></p>
+              <p class="course-credits"></p>
+            </div>
+            <div class="remove-course">
+              &cross;
+            </div>
+          </div>
         </form>
       </div>
-        
+
       <div class="gpcont-footer">
         <div class="semester-gp">
           <p>Semester&nbsp;<span class="semester-num">1&nbsp;</span>GPA:&nbsp;</p><span class="sem-gpa">0.00</span>
@@ -55,7 +61,9 @@
       </div>
 
     </section>
-
+    <div class="bottom-menu">
+      <button class="add-semester">Add Semester</button>
+    </div>
   </main>
   <script src="./script.js"></script>
 </body>

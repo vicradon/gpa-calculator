@@ -14,16 +14,41 @@ main {
 .side-menu {
     display: flex;
     flex-flow: column wrap;
-    width: 10vw;
-    background-color: white;
-    /* text-align: center; */
-    justify-content: space-around;
-    grid-row: span 10;
+    justify-content: space-between;
+    height: 100%;
+    width: 5rem;
+    position: fixed; 
+    z-index: 1; 
+    top: 0; 
+    left: 0;
+    background-color: #6cf; 
+    overflow-x: hidden; 
+    padding-top: 20px;
+}
+.bottom-menu {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #6cf; 
+    width: 100%;
+    height: 3rem;
+    padding: 0.4rem;
+    visibility: hidden;
+}
+.side-menu button, .bottom-menu button {
+    font-size: 1rem;
+    padding: 0.4rem;
+    height: 100%;
+    border: 1px solid skyblue;
+    outline: 0;
+    cursor: pointer;
+    border-radius: 0.9rem;
+    background-color: rgba(204, 255, 204, 0.616);
 }
 .side-menu button {
-    font-size: 0.7rem;
-    height: 2rem;
-    width: 4rem;
+    width: 100%;
+    height: 4rem;
 }
 .gpcont {
     grid-column: 2/3;
@@ -58,6 +83,10 @@ main {
     /* text-align: center; */
     padding: 0.3rem 1rem;
     line-height: 2rem;
+}
+.course-table {
+    display: flex;
+    flex-flow: row wrap;
 }
 .gpcont-footer {
     display: flex;
@@ -99,4 +128,8 @@ main {
 }
 .grade-select {
     cursor: pointer;
+}
+@media(max-width:700px){
+    .side-menu{visibility: hidden;}
+    .bottom-menu{visibility: visible;}
 }
