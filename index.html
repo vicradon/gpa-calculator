@@ -20,13 +20,12 @@
           &cross;
         </p>
       </div>
-
-
       <div class="gptable">
         <form class="gpitem">
           <p>
             <input id="course" type="text" name="course" class="gpa-item-input" placeholder="Course Name">
           </p>
+
           <p>
             <select name="grade-select" class="grade-select">
               <option value="--">Select Grade</option>
@@ -38,20 +37,23 @@
             </select>
           </p>
           <p>
-            <input type="text" name="credits" class="gpa-item-input" placeholder="Credits">
+            <input id="credits" type="number" name="credits" class="gpa-item-input" placeholder="Credits">
           </p>
-          <div style="visibility: visible" class="course-table">
-            <div class="course-table-items">
-              <p class="course-name"></p>
-              <p class="course-grade"></p>
-              <p class="course-credits"></p>
-            </div>
-            <div class="remove-course">
-              &cross;
-            </div>
-          </div>
+
         </form>
       </div>
+
+      <div style="display: none" id="course-table" class="course-table">
+        <div class="course-table-items">
+          <p class="course-name"></p>
+          <p class="course-grade"></p>
+          <p class="course-credits"></p>
+        </div>
+        <div onclick="removeCourse()" class="remove-course">
+          &cross;
+        </div>
+      </div>
+
 
       <div class="gpcont-footer">
         <div class="semester-gp">
@@ -63,6 +65,7 @@
     </section>
     <div class="bottom-menu">
       <button class="add-semester">Add Semester</button>
+      <button class="add-semester">Save To Drive</button>
     </div>
   </main>
   <script src="./script.js"></script>

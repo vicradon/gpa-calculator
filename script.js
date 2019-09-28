@@ -11,40 +11,76 @@ const $$ = n => document.querySelectorAll(n);
 const log = n => console.log(n);
 const qs = (n, elem) => n.querySelector(elem);
 
-const tnu = 0;
-const tgp = 0;
+// const tnu = 0;
+// const tgp = 0;
+const activeCourses = {};
 
 function calculateGPA() {
-  const gpa = (tnu / tgp).toFixed(2);
+  const gradeVal = { a: 5, b: 4, c: 3, d: 2, f: 1 }
+  let tnu = 0;
+  let tgp = 0;
+  log(Object.entries(activeCourses));
+  (function isEmpty() {
+    if (Object.entries(activeCourses).length === 0 && Object.constructor === Object) {
+      $('.sem-gpa').textContent = '0.00';
+    }
+  })();
+
+  Object.entries(activeCourses).forEach(([key, value]) => {
+    //if (!activeCourses.hasOwnProperty(key)) {
+      tnu += +value[0];
+      tgp += (gradeVal[value[1].toLowerCase()] * +value[0]);
+    //}
+  });
+  const gpa = (tgp / tnu).toFixed(2);
+  $('.sem-gpa').textContent = gpa;
+}
+
+function validateForm() {
+  $('#course').value = $('#course').value.trim();
+  $('#credits').value = $('#credits').value.trim();
+
+  if ($('#course').value && $('#credits').value && $('.grade-select').options[$('.grade-select').selectedIndex].value) {
+    return true
+  }
 }
 
 function addCourse() {
-  let clonedTemplate =  $('.course-table').cloneNode(true);
-  qs(clonedTemplate, $('.course-name')).textContent = '';
-  let semesterTable = table;
-  $('main').appendChild(semesterTable);
-  log("appended")
+  if (validateForm()) {
+    const e = $('.grade-select');
+    const courseName = $('#course').value;
+    const courseCredits = $('#credits').value;
+    const courseGrade = e.options[e.selectedIndex].value.toUpperCase();
+    let clonedTemplate = $('#course-table').cloneNode(true);
+    clonedTemplate.style.display = 'flex';
+    activeCourses[courseName] = [courseCredits, courseGrade];
+    //log(activeCourses)
+
+    qs(clonedTemplate, '.course-name').textContent = courseName;
+    qs(clonedTemplate, '.course-grade').textContent = courseGrade;
+    qs(clonedTemplate, '.course-credits').textContent = courseCredits;
+
+    $('.gpitem').reset();
+    calculateGPA();
+    $('.gpcont').appendChild(clonedTemplate);
+  }
 }
 
 
-/* function submit() {
-  this.preventDefault();
-  const gradeVal = { a: 5, b: 4, c: 3, d: 2, f: 1 }
-  const e = this.querySelector('select');
-  const SelectedGradeVal = e.options[e.selectedIndex].value;
-  log(SelectedGradeVal)
+
+function removeCourse() {
+  this.addEventListener('click', e => {
+    let a = Array.from((e.target.classList));
+    if (a.includes('remove-course')) {
+      let b = e.target.parentNode;
+      $('.gpcont').removeChild(b);
+      let c = qs(b, '.course-name').textContent;
+      delete activeCourses[c];
+      calculateGPA();
+    };
+  });
 }
 
-$$('.gpitem').forEach(form => {
-  form.addEventListener('submit', ev => {
-    ev.preventDefault();
-    const gradeVal = { a: 5, b: 4, c: 3, d: 2, f: 1 }
-    const e = form.querySelector('select');
-    const SelectedGradeVal = e.options[e.selectedIndex].value;
-    log(SelectedGradeVal)
-  })
-})
-*/
 
 function addSemester() {
   let table = document.createDocumentFragment();
@@ -59,3 +95,5 @@ function addSemester() {
 }
 
 $$('.add-semester').forEach(button => button.onclick = addSemester);
+
+$('.add-course').onclick = addCourse;
