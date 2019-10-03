@@ -15,20 +15,24 @@ const qs = (n, elem) => n.querySelector(elem);
 const activeCourses = {};
 
 function calculateGPA() {
-  const gradeVal = { a: 5, b: 4, c: 3, d: 2, f: 1 }
+  const gradeVal = { a: 5, b: 4, c: 3, d: 2, f: 1, notSelected: 0 }
   let tnu = 0;
   let tgp = 0;
   
-  (function isEmpty() {
-    if (Object.entries(activeCourses).length === 0 && Object.constructor === Object) {
-      $('.sem-gpa').textContent = '0.00';
-    }
-  })();
+  // if there is no course selected
+  if (Object.entries(activeCourses).length === 0) {
+    $('.sem-gpa').textContent = '0.00';
+    return;
+  }
 
-  Object.entries(activeCourses).forEach(([key, value]) => {
+  Object.values(activeCourses).forEach((creditGradePair) => {
     //if (!activeCourses.hasOwnProperty(key)) {
-    tnu += +value[0];
-    tgp += (gradeVal[value[1].toLowerCase()] * +value[0]);
+    const [credit, grade] = [+creditGradePair[0], creditGradePair[1].toLowerCase()];
+    tnu += credit;
+    tgp +=
+      (grade !== '--'
+        ? gradeVal[grade]
+        : gradeVal['notSelected']) * credit;
     //}
   });
   const gpa = (tgp / tnu).toFixed(2);
@@ -51,7 +55,9 @@ function addCourse() {
     const e = $('.grade-select');
     const courseName = $('#course').value;
     const courseCredits = $('#credits').value;
-    const courseGrade = e.options[e.selectedIndex].value.toUpperCase();
+
+    const selectedGrade = e.options[e.selectedIndex].value;
+    const courseGrade = selectedGrade !== '--'?  selectedGrade.toUpperCase(): '--';
     let clonedTemplate = $('#course-table').cloneNode(true);
     clonedTemplate.style.display = 'flex';
     activeCourses[courseName] = [courseCredits, courseGrade];
