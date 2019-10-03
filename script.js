@@ -15,20 +15,24 @@ const qs = (n, elem) => n.querySelector(elem);
 const activeCourses = {};
 
 function calculateGPA() {
-  const gradeVal = { a: 5, b: 4, c: 3, d: 2, f: 1 }
+  const gradeVal = { a: 5, b: 4, c: 3, d: 2, f: 1, notSelected: 0 }
   let tnu = 0;
   let tgp = 0;
   
-  (function isEmpty() {
-    if (Object.entries(activeCourses).length === 0 && Object.constructor === Object) {
-      $('.sem-gpa').textContent = '0.00';
-    }
-  })();
+  // if there is no course selected
+  if (Object.entries(activeCourses).length === 0) {
+    $('.sem-gpa').textContent = '0.00';
+    return;
+  }
 
-  Object.entries(activeCourses).forEach(([key, value]) => {
+  Object.values(activeCourses).forEach((creditGradePair) => {
     //if (!activeCourses.hasOwnProperty(key)) {
-    tnu += +value[0];
-    tgp += (gradeVal[value[1].toLowerCase()] * +value[0]);
+    const [credit, grade] = [+creditGradePair[0], creditGradePair[1].toLowerCase()];
+    tnu += credit;
+    tgp +=
+      (grade !== '--'
+        ? gradeVal[grade]
+        : gradeVal['notSelected']) * credit;
     //}
   });
   const gpa = (tgp / tnu).toFixed(2);
@@ -51,7 +55,9 @@ function addCourse() {
     const e = $('.grade-select');
     const courseName = $('#course').value;
     const courseCredits = $('#credits').value;
-    const courseGrade = e.options[e.selectedIndex].value.toUpperCase();
+
+    const selectedGrade = e.options[e.selectedIndex].value;
+    const courseGrade = selectedGrade !== '--'?  selectedGrade.toUpperCase(): '--';
     let clonedTemplate = $('#course-table').cloneNode(true);
     clonedTemplate.style.display = 'flex';
     activeCourses[courseName] = [courseCredits, courseGrade];
@@ -69,17 +75,18 @@ function addCourse() {
 
 
 
-function removeCourse() {
-  this.addEventListener('click', e => {
-    let a = Array.from((e.target.classList));
-    if (a.includes('remove-course')) {
-      let b = e.target.parentNode;
-      $('.gpcont').removeChild(b);
-      let c = qs(b, '.course-name').textContent;
-      delete activeCourses[c];
-      calculateGPA();
-    };
-  });
+function removeCourse({ target }) {
+  if (target.classList.contains('remove-course')) {
+    const parent = target.parentNode;
+    const gpCount = $('.gpcont');
+
+    if(parent.contains(parent)){
+      gpCount.removeChild(parent);
+    }
+    const courseName = qs(parent, '.course-name').textContent;
+    delete activeCourses[courseName];
+    calculateGPA();
+  };
 }
 
 let semesterTracker = [1, 2, 3, 4, 5];
@@ -142,7 +149,7 @@ function addSemester() {
         <p class="course-grade"></p>
         <p class="course-credits"></p>
       </div>
-      <div onclick="removeCourse()" class="remove-course">
+      <div onclick="removeCourse(event)" class="remove-course">
         ✗
       </div>
     </div>
