@@ -1,9 +1,9 @@
-/* 
+/*
   * Seclude the each semster.
   * Make the code run for each individual semester
   * A function called controller would track the current number of semesters and label each one accordingly.
   * Another function would calculate the cgpa
-  * Yet, another function would deal with semester deletitions 
+  * Yet, another function would deal with semester deletions
 */
 let courseID = 1;
 
@@ -18,7 +18,7 @@ function calculateGPA() {
   const gradeVal = { a: 5, b: 4, c: 3, d: 2, f: 1, notSelected: 0 }
   let tnu = 0;
   let tgp = 0;
-  
+
   // if there is no course selected
   if (Object.entries(activeCourses).length === 0) {
     $('.sem-gpa').textContent = '0.00';
@@ -89,7 +89,7 @@ function removeCourse({ target }) {
   };
 }
 
-let semesterTracker = [1, 2, 3, 4, 5];
+let semesterTracker = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 
 function updateSemester(which) {
