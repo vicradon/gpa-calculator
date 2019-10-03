@@ -13,10 +13,11 @@
     <div class="side-menu">
       <button class="add-semester">Add Semester</button>
     </div>
+
     <section class="gpcont">
       <div class="gpcont-header">
         <h3 class="semester">Semester <span class="semester-num">1</span></h3>
-        <p class="remove-semester">
+        <p onclick="removeSemester()" class="remove-semester">
           &cross;
         </p>
       </div>
@@ -54,7 +55,6 @@
         </div>
       </div>
 
-
       <div class="gpcont-footer">
         <div class="semester-gp">
           <p>Semester&nbsp;<span class="semester-num">1&nbsp;</span>GPA:&nbsp;</p><span class="sem-gpa">0.00</span>
@@ -63,11 +63,12 @@
       </div>
 
     </section>
-    <div class="bottom-menu">
-      <button class="add-semester">Add Semester</button>
-      <button class="add-semester">Save To Drive</button>
-    </div>
+
   </main>
+  <div class="bottom-menu">
+    <button id="add-semester">Add Semester</button>
+    <button class="add-semester">Save To Drive</button>
+  </div>
   <script src="./script.js"></script>
 </body>
 

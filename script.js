@@ -1,8 +1,9 @@
 /* 
-  * Handle Changes in form data
-  * I want to alter the values of tnu and tgp depending on changes in form data
-  * Then recalculate the gpa and display it to a user
-  * 
+  * Seclude the each semster.
+  * Make the code run for each individual semester
+  * A function called controller would track the current number of semesters and label each one accordingly.
+  * Another function would calculate the cgpa
+  * Yet, another function would deal with semester deletitions 
 */
 
 
@@ -11,15 +12,13 @@ const $$ = n => document.querySelectorAll(n);
 const log = n => console.log(n);
 const qs = (n, elem) => n.querySelector(elem);
 
-// const tnu = 0;
-// const tgp = 0;
 const activeCourses = {};
 
 function calculateGPA() {
   const gradeVal = { a: 5, b: 4, c: 3, d: 2, f: 1 }
   let tnu = 0;
   let tgp = 0;
-  log(Object.entries(activeCourses));
+  
   (function isEmpty() {
     if (Object.entries(activeCourses).length === 0 && Object.constructor === Object) {
       $('.sem-gpa').textContent = '0.00';
@@ -28,12 +27,14 @@ function calculateGPA() {
 
   Object.entries(activeCourses).forEach(([key, value]) => {
     //if (!activeCourses.hasOwnProperty(key)) {
-      tnu += +value[0];
-      tgp += (gradeVal[value[1].toLowerCase()] * +value[0]);
+    tnu += +value[0];
+    tgp += (gradeVal[value[1].toLowerCase()] * +value[0]);
     //}
   });
   const gpa = (tgp / tnu).toFixed(2);
   $('.sem-gpa').textContent = gpa;
+  log(this)
+  //this.querySelector('.sem-gpa').textContent = gpa;
 }
 
 function validateForm() {
@@ -81,17 +82,86 @@ function removeCourse() {
   });
 }
 
+let semesterTracker = [1, 2, 3, 4, 5];
 
+
+function updateSemester(which) {
+  let a = semesterTracker.splice(which - 1, 1);
+  for (let i = a - 1; i < semesterTracker.length; i++) {
+    semesterTracker[i] = semesterTracker[i] - 1;
+  }
+}
+
+function removeSemester() {
+  this.addEventListener('click', e => {
+    let a = Array.from((e.target.classList));
+    if (a.includes('remove-semester')) {
+      let b = e.target.parentNode.parentNode;
+      $('main').removeChild(b);
+    };
+  });
+}
+
+
+let sem = 2;
 function addSemester() {
-  let table = document.createDocumentFragment();
-  (function tableCreator() {
-    let clonedTemplate = $('.gpcont').cloneNode(true);
-    clonedTemplate.querySelector('.gpitem').reset();
-    table.appendChild(clonedTemplate);
-  })();
-  let semesterTable = table;
-  $('main').appendChild(semesterTable);
-  log("appended")
+  if (sem <= semesterTracker[semesterTracker.length - 1]) {
+    const semester = `<section class="gpcont">
+    <div class="gpcont-header">
+      <h3 class="semester">Semester <span class="semester-num">${semesterTracker[sem-1]}</span></h3>
+      <p onclick="removeSemester()" class="remove-semester">
+        ✗
+      </p>
+    </div>
+    <div class="gptable">
+      <form class="gpitem">
+        <p>
+          <input id="course" type="text" name="course" class="gpa-item-input" placeholder="Course Name">
+        </p>
+
+        <p>
+          <select name="grade-select" class="grade-select">
+            <option value="--">Select Grade</option>
+            <option value="a">A</option>
+            <option value="b">B</option>
+            <option value="c">C</option>
+            <option value="d">D</option>
+            <option value="f">F</option>
+          </select>
+        </p>
+        <p>
+          <input id="credits" type="number" name="credits" class="gpa-item-input" placeholder="Credits">
+        </p>
+
+      </form>
+    </div>
+
+    <div style="display: none" id="course-table" class="course-table">
+      <div class="course-table-items">
+        <p class="course-name"></p>
+        <p class="course-grade"></p>
+        <p class="course-credits"></p>
+      </div>
+      <div onclick="removeCourse()" class="remove-course">
+        ✗
+      </div>
+    </div>
+
+
+    <div class="gpcont-footer">
+      <div class="semester-gp">
+        <p>Semester&nbsp;<span class="semester-num">1&nbsp;</span>GPA:&nbsp;</p><span class="sem-gpa">0.00</span>
+      </div>
+      <button class="add-course">Add&nbsp;Course</button>
+    </div>
+
+    </section>`;
+    let lastSemester = semesterTracker[semesterTracker.length - 1];
+    currentSemester = lastSemester + 1;
+    semesterTracker.push();
+    $('main').insertAdjacentHTML('beforeend', semester)
+    sem += 1;
+  }
 }
 
 $$('.add-semester').forEach(button => button.onclick = addSemester);
