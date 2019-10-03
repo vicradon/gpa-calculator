@@ -5,7 +5,7 @@
   * Another function would calculate the cgpa
   * Yet, another function would deal with semester deletitions 
 */
-
+let courseID = 1;
 
 const $ = n => document.querySelector(n);
 const $$ = n => document.querySelectorAll(n);
