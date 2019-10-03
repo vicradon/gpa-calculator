@@ -75,17 +75,18 @@ function addCourse() {
 
 
 
-function removeCourse() {
-  this.addEventListener('click', e => {
-    let a = Array.from((e.target.classList));
-    if (a.includes('remove-course')) {
-      let b = e.target.parentNode;
-      $('.gpcont').removeChild(b);
-      let c = qs(b, '.course-name').textContent;
-      delete activeCourses[c];
-      calculateGPA();
-    };
-  });
+function removeCourse({ target }) {
+  if (target.classList.contains('remove-course')) {
+    const parent = target.parentNode;
+    const gpCount = $('.gpcont');
+
+    if(parent.contains(parent)){
+      gpCount.removeChild(parent);
+    }
+    const courseName = qs(parent, '.course-name').textContent;
+    delete activeCourses[courseName];
+    calculateGPA();
+  };
 }
 
 let semesterTracker = [1, 2, 3, 4, 5];
@@ -148,7 +149,7 @@ function addSemester() {
         <p class="course-grade"></p>
         <p class="course-credits"></p>
       </div>
-      <div onclick="removeCourse()" class="remove-course">
+      <div onclick="removeCourse(event)" class="remove-course">
         ✗
       </div>
     </div>
