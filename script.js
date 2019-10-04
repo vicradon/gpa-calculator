@@ -89,15 +89,14 @@ function removeCourse({ target }) {
   };
 }
 
-let semesterTracker = [1, 2, 3, 4, 5];
+// let semesterTracker = [1, 2, 3, 4, 5];
 
-
-function updateSemester(which) {
-  let a = semesterTracker.splice(which - 1, 1);
-  for (let i = a - 1; i < semesterTracker.length; i++) {
-    semesterTracker[i] = semesterTracker[i] - 1;
-  }
-}
+// function updateSemester(which) {
+//   let a = semesterTracker.splice(which - 1, 1);
+//   for (let i = a - 1; i < semesterTracker.length; i++) {
+//     semesterTracker[i] = semesterTracker[i] - 1;
+//   }
+// }
 
 function removeSemester() {
   this.addEventListener('click', e => {
@@ -110,12 +109,14 @@ function removeSemester() {
 }
 
 
-let sem = 2;
 function addSemester() {
-  if (sem <= semesterTracker[semesterTracker.length - 1]) {
+  // We start at semester 2 because semester 1 is included by default in index.html
+  let sem = 2;
+  
+  return function () {
     const semester = `<section class="gpcont">
     <div class="gpcont-header">
-      <h3 class="semester">Semester <span class="semester-num">${semesterTracker[sem-1]}</span></h3>
+      <h3 class="semester">Semester <span class="semester-num">${sem}</span></h3>
       <p onclick="removeSemester()" class="remove-semester">
         ✗
       </p>
@@ -163,14 +164,12 @@ function addSemester() {
     </div>
 
     </section>`;
-    let lastSemester = semesterTracker[semesterTracker.length - 1];
-    currentSemester = lastSemester + 1;
-    semesterTracker.push();
+
     $('main').insertAdjacentHTML('beforeend', semester)
     sem += 1;
   }
 }
 
-$$('.add-semester').forEach(button => button.onclick = addSemester);
+$$('.add-semester').forEach(button => button.onclick = addSemester());
 
 $('.add-course').onclick = addCourse;
