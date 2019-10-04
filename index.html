@@ -11,13 +11,13 @@
 <body>
   <main>
     <div class="side-menu">
-      <button class="add-semester">Add Semester</button>
+      <button onclick="addSemester()" class="add-semester">Add Semester</button>
     </div>
 
     <section class="gpcont">
       <div class="gpcont-header">
         <h3 class="semester">Semester <span class="semester-num">1</span></h3>
-        <p onclick="removeSemester()" class="remove-semester">
+        <p onclick="removeSemester(event)" class="remove-semester">
           &cross;
         </p>
       </div>
@@ -66,7 +66,7 @@
 
   </main>
   <div class="bottom-menu">
-    <button id="add-semester">Add Semester</button>
+    <button onclick="addSemester()" id="add-semester">Add Semester</button>
     <button class="add-semester">Save To Drive</button>
   </div>
   <script src="./script.js"></script>

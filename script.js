@@ -18,7 +18,7 @@ function calculateGPA() {
   const gradeVal = { a: 5, b: 4, c: 3, d: 2, f: 1, notSelected: 0 }
   let tnu = 0;
   let tgp = 0;
-  
+
   // if there is no course selected
   if (Object.entries(activeCourses).length === 0) {
     $('.sem-gpa').textContent = '0.00';
@@ -26,19 +26,15 @@ function calculateGPA() {
   }
 
   Object.values(activeCourses).forEach((creditGradePair) => {
-    //if (!activeCourses.hasOwnProperty(key)) {
     const [credit, grade] = [+creditGradePair[0], creditGradePair[1].toLowerCase()];
     tnu += credit;
     tgp +=
       (grade !== '--'
         ? gradeVal[grade]
-        : gradeVal['notSelected']) * credit;
-    //}
+        : gradeVal['notSelected']) * credit
   });
   const gpa = (tgp / tnu).toFixed(2);
   $('.sem-gpa').textContent = gpa;
-  log(this)
-  //this.querySelector('.sem-gpa').textContent = gpa;
 }
 
 function validateForm() {
@@ -57,7 +53,7 @@ function addCourse() {
     const courseCredits = $('#credits').value;
 
     const selectedGrade = e.options[e.selectedIndex].value;
-    const courseGrade = selectedGrade !== '--'?  selectedGrade.toUpperCase(): '--';
+    const courseGrade = selectedGrade !== '--' ? selectedGrade.toUpperCase() : '--';
     let clonedTemplate = $('#course-table').cloneNode(true);
     clonedTemplate.style.display = 'flex';
     activeCourses[courseName] = [courseCredits, courseGrade];
@@ -80,7 +76,7 @@ function removeCourse({ target }) {
     const parent = target.parentNode;
     const gpCount = $('.gpcont');
 
-    if(parent.contains(parent)){
+    if (parent.contains(parent)) {
       gpCount.removeChild(parent);
     }
     const courseName = qs(parent, '.course-name').textContent;
@@ -99,14 +95,11 @@ function updateSemester(which) {
   }
 }
 
-function removeSemester() {
-  this.addEventListener('click', e => {
-    let a = Array.from((e.target.classList));
-    if (a.includes('remove-semester')) {
-      let b = e.target.parentNode.parentNode;
-      $('main').removeChild(b);
-    };
-  });
+function removeSemester({ target }) {
+  if (target.classList.contains('remove-semester')) {
+    const parent = target.parentNode.parentNode;
+    $('main').removeChild(parent);
+  }
 }
 
 
@@ -115,8 +108,8 @@ function addSemester() {
   if (sem <= semesterTracker[semesterTracker.length - 1]) {
     const semester = `<section class="gpcont">
     <div class="gpcont-header">
-      <h3 class="semester">Semester <span class="semester-num">${semesterTracker[sem-1]}</span></h3>
-      <p onclick="removeSemester()" class="remove-semester">
+      <h3 class="semester">Semester <span class="semester-num">${semesterTracker[sem - 1]}</span></h3>
+      <p onclick="removeSemester(event)" class="remove-semester">
         ✗
       </p>
     </div>
@@ -170,7 +163,5 @@ function addSemester() {
     sem += 1;
   }
 }
-
-$$('.add-semester').forEach(button => button.onclick = addSemester);
 
 $('.add-course').onclick = addCourse;
