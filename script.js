@@ -6,7 +6,7 @@
   * Yet, another function would deal with semester deletitions 
 */
 let courseID = 1;
-
+//dun
 const $ = n => document.querySelector(n);
 const $$ = n => document.querySelectorAll(n);
 const log = n => console.log(n);
