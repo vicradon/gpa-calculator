@@ -1,9 +1,7 @@
 # gpa-calculator
 
-A gpa pwa for university students which integrates with drive
+Hello developer. Want to contribute to open source? Why not start from here. This project was formerly designed to work with functions only, but seeing the limitations of that approach, I decided to use classes, working with MVC architecture. 
 
-## isuues
+## Project Overview
 
-1. The bottom menu blocks some content
-2. If the activeCourses is empty, NaN is displayed
-3. Multiple Objects seem to be able to exist in the object
+Basically, each semester is a unit, in this case, an object of the semester class. Each semester functions individually. Data from each semester would be collected and the cgpa calculated.
