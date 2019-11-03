@@ -1,5 +1,7 @@
 :root {
   --light-dark: #00000046;
+  --light-blue:#1ab6f38e;
+  --dark-blue:#2d92b9;
 }
 
 .semester-card {
@@ -45,7 +47,10 @@
 .reset-form {
   margin-right: 0.3rem;
 }
-
+.add-course, .reset-form {
+  background-color: var(--dark-blue);
+  color: white;
+}
 @media(max-width:700px){
   .semester-card {
     width:400px;
