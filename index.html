@@ -5,29 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./css/position.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/semester-form-card.css">
+  <link rel="stylesheet" href="./css/semester-card.css">
+  <link rel="stylesheet" href="./css/header-aside.css">
+  <link rel="stylesheet" href="./css/mdi/mdi.css">
+  <link rel="stylesheet" href="./css/semester-grade-table.css">
 </head>
 
 <body>
-  <main>
-    <div class="side-menu">
-      <button onclick="addSemester()" class="add-semester">Add Semester</button>
-    </div>
-
-    <section class="gpcont">
-      <div class="gpcont-header">
-        <h3 class="semester">Semester <span class="semester-num">1</span></h3>
-        <p onclick="removeSemester(event)" class="remove-semester">
-          &cross;
-        </p>
+  <div class="container">
+    <header>
+      <p class="invisible">
+        <i class="material-icons">menu</i>
+      </p>
+      <p id="swag-gp-logo">SWAG-GP</p>
+      <div class="user-actions">
+        <a id="about" href="#">ABOUT</a>
+        <a id="donate" href="#">DONATE</a>
+        <i id="show-chart" class="material-icons">show_chart</i> 
+        <i id="user-icon" class="material-icons">person_pin</i>
       </div>
-      <div class="gptable">
-        <form class="gpitem">
-          <p>
-            <input id="course" type="text" name="course" class="gpa-item-input" placeholder="Course Name">
-          </p>
+    </header>
 
-          <p>
+    <aside>
+      <i style="font-size: 35" class="material-icons add-icon">add_circle</i>
+      <i style="font-size: 35" class="material-icons add-icon">school</i>
+      <i style="font-size: 35" class="material-icons add-icon">settings</i>
+    </aside>
+
+    <main> 
+      <section class="semester-card">
+
+        <div class="semester-details">
+          <p contenteditable="true" class="semester-name">Enter Semester Name</p>
+          <p class="year-of-study">Level</p>
+        </div>
+
+        <form class="semester-form">
+
+          <div class="input-select">
+
+
+            <input id="semester-form-course" type="text" name="course" class="semester-form-input"
+              placeholder="Course Name">
+
             <select name="grade-select" class="grade-select">
               <option value="--">Select Grade</option>
               <option value="a">A</option>
@@ -36,40 +59,60 @@
               <option value="d">D</option>
               <option value="f">F</option>
             </select>
-          </p>
-          <p>
-            <input id="credits" type="number" name="credits" class="gpa-item-input" placeholder="Credits">
-          </p>
+
+            <input id="semester-form-credits" type="text" name="credits" class="semester-form-input"
+              placeholder="Credits">
+          </div>
+
+          <div class="form-actions">
+            <button class="reset-form">Reset</button>
+            <button class="add-course">Add</button>
+          </div>
 
         </form>
-      </div>
 
-      <div style="display: none" id="course-table" class="course-table">
-        <div class="course-table-items">
-          <p class="course-name"></p>
-          <p class="course-grade"></p>
-          <p class="course-credits"></p>
+        <div class="semester-grades">
+          <div class="table">
+
+            <div class="row header">
+              <p class="cell">Course Name</p>
+              <p class="cell">Grade</p>
+              <p class="cell">Units</p>
+              <p class="cell">Actions</p>
+            </div>
+
+            <div class="row">
+              <p class="cell" data-title="Course Name">ENG 224</p>
+              <p class="cell" data-title="Grade">A</p>
+              <p class="cell" data-title="Units">2</p>
+              <p class="cell" data-title="Actions">
+                <i class="material-icons table-edit-action">edit</i>
+                <i class="material-icons table-delete-action">delete</i>
+              </p>
+            </div>
+            <div class="row">
+              <p class="cell" data-title="Course Name">ENG 208</p>
+              <p class="cell" data-title="Grade">A</p>
+              <p class="cell" data-title="Units">2</p>
+              <p class="cell" data-title="Actions">
+                <i class="material-icons table-edit-action">edit</i>
+                <i class="material-icons table-delete-action">delete</i>
+              </p>
+            </div>
+
+          </div>
+          <div class="semester-actions">
+            <p class="semester-info">GPA: <span class="semester-gpa">5.0</span> </p>
+            <p><i class="material-icons add-semester-to-list">add_circle_outline</i></p>
+          </div>
         </div>
-        <div onclick="removeCourse(event)" class="remove-course">
-          &cross;
-        </div>
-      </div>
+      </section>
+    </main>
 
-      <div class="gpcont-footer">
-        <div class="semester-gp">
-          <p>Semester&nbsp;<span class="semester-num">1&nbsp;</span>GPA:&nbsp;</p><span class="sem-gpa">0.00</span>
-        </div>
-        <button class="add-course">Add&nbsp;Course</button>
-      </div>
-
-    </section>
-
-  </main>
-  <div class="bottom-menu">
-    <button onclick="addSemester()" id="add-semester">Add Semester</button>
-    <button class="add-semester">Save To Drive</button>
   </div>
-  <script src="./script.js"></script>
+
+  <script src="./js/index.js"></script>
+  <script src="./js/util.js"></script>
 </body>
 
 </html>
