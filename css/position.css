@@ -1,0 +1,33 @@
+.container {
+  display: grid;
+  grid-template-columns: 3rem auto;
+  grid-template-rows: 2.5rem auto;
+  height: 100%;
+  text-align: center;
+}
+aside {
+  grid-row: 2 / 3;
+  background-color: #1ab5f3;
+  color: white;
+}
+header{
+  background-color: #2d92b9;
+  grid-column: 1 / -1;
+}
+main {
+  grid-column: 2 / -1;
+  background-color: #87cfeb70;
+}
+@media (max-width:700px){
+  main {
+    grid-column: 1 / -1;
+  }
+  aside {
+    grid-row: 3 / 4;
+    grid-column: 1 / -1;
+  }
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 2.5rem auto 3rem;
+  }
+}
