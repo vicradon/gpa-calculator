@@ -1,58 +1,47 @@
-const actions = {
-  increment: {
-    type: 'INCREMENT',
-    payload: { value: 1 }
-  },
-  decrement: {
-    type: 'DECREMENT',
-    payload: { value: -1 }
-  },
-  changeColor(color) {
-    return {
-      type: 'CHANGE_COLOR',
-      payload: { color: color }
-    }
-  },
-  handleChange({target}) {
-    return {
-      type: 'HANDLE_CHANGE',
-      payload: { value: target.value }
-    }
+const displayLevel = id => {
+  return {
+    type: 'DISPLAY_LEVEL',
+    id:id
   }
 }
-/*
-const actions = {
-  addNewSemester(context, payload){
-    context.commit('mutation', payload)
-  },
-  addNewCourse(context, payload){
-    context.commit('mutation', payload)
-  },
-  resetForm(context, payload){
-    context.commit('mutation', payload)
-  },
-  editCourse(context, payload){
-    context.commit('mutation', payload)
-  },
-  editSemester(context, payload){
-    context.commit('mutation', payload)
-  },
-  openSettings(context, payload){
-    context.commit('mutation', payload)
-  },
-  openSummary(context, payload){
-    context.commit('mutation', payload)
-  },
-  openAbout(context, payload){
-    context.commit('mutation', payload)
-  },
-  openDonate(context, payload){
-    context.commit('mutation', payload)
-  },
-  openProfile(context, payload){
-    context.commit('mutation', payload)
-  }
-}
-export default actions;
 
-*/
+const addNewCourse = (semesterID, yearID, courseName, courseGrade, courseUnits) => {
+  return {
+    type:'ADD_NEW_COURSE',
+    payload:{
+      semesterID:semesterID, 
+      yearID:yearID, 
+      courseName:courseName, 
+      courseGrade:courseGrade, 
+      courseUnits:courseUnits
+    }
+  }
+}
+
+const updateCurrentLevel = () => {
+  return {
+    type: 'UPDATE_CURRENT_LEVEL'
+  }
+}
+
+const editCourse = (courseID, semesterID, yearID) => {
+  return {
+    type: 'EDIT_COURSE',
+    payload: {
+      courseID:courseID, 
+      semesterID:semesterID, 
+      yearID:yearID
+    }
+  }
+}
+
+const deleteCourse = (courseID, semesterID, yearID) => {
+  return {
+    type: 'DELETE_COURSE',
+    payload: {
+      courseID:courseID, 
+      semesterID:semesterID, 
+      yearID:yearID
+    }
+  }
+}
