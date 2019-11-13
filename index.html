@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="./css/header-aside.css">
   <link rel="stylesheet" href="./css/mdi/mdi.css">
   <link rel="stylesheet" href="./css/semester-grade-table.css">
+  <link rel="stylesheet" href="./css/pop-ups.css">
 
   <!-- IOS SUPPORT -->
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
@@ -30,18 +31,29 @@
       <div class="user-actions">
         <a id="about" href="./pages/about.html">ABOUT</a>
         <a id="donate" href="#">DONATE</a>
-        <i id="show-chart" class="material-icons">show_chart</i> 
+        <i id="show-chart" class="material-icons">show_chart</i>
         <i id="user-icon" class="material-icons">person_pin</i>
       </div>
     </header>
 
     <aside>
-      <i style="font-size: 35" id = "expose-levels" class="material-icons add-icon">keyboard_arrow_right</i>
+      <div class="years-wrapper">
+        <i style="font-size: 35" id="expose-levels" class="material-icons add-icon">keyboard_arrow_right</i>
+        <div class="years-popup">
+          <div class="years-menu">
+            <p data-id="1" class="year1">Year 1</p>
+            <p data-id="2" class="year2">Year 2</p>
+            <p data-id="3" class="year3">Year 3</p>
+            <p data-id="4" class="year4">Year 4</p>
+            <p data-id="5" class="year5">Year 5</p>
+          </div>
+          <button class="add-year">Add Year</button>
+        </div>
+      </div>
       <i style="font-size: 35" class="material-icons add-icon">school</i>
       <i style="font-size: 35" class="material-icons add-icon">settings</i>
     </aside>
-
-    <main> 
+    <main>
       <section class="semester-card">
 
         <div class="semester-details">
@@ -116,13 +128,16 @@
     </main>
 
   </div>
-  <script src="./js/regSW.js"></script>
-  <script type="module" src="./js/index.mjs"></script>
-  <script type="module" src="./js/util.mjs"></script>
-  <script type="module" src="./js/beedle.mjs"></script>
-  <script type="module" src="./js/actions.mjs"></script>
-  <script type="module" src="./js/mutations.mjs"></script>
-  <script type="module" src="./js/nodes.mjs"></script>
+
+
+
+  <script src="./js/redux.min.js"></script>
+  <script src="./js/nodes.js"></script>
+  <script src="./js/reducer.js"></script>
+  <script src="./js/index.js"></script>
+  <script src="./js/actions.js"></script>
+  <script src="./js/events.js"></script>
+  <script src="./js/init.js"></script>
 </body>
 
 </html>

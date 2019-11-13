@@ -1,4 +1,27 @@
-const mutations = {
+const actions = {
+  increment: {
+    type: 'INCREMENT',
+    payload: { value: 1 }
+  },
+  decrement: {
+    type: 'DECREMENT',
+    payload: { value: -1 }
+  },
+  changeColor(color) {
+    return {
+      type: 'CHANGE_COLOR',
+      payload: { color: color }
+    }
+  },
+  handleChange({target}) {
+    return {
+      type: 'HANDLE_CHANGE',
+      payload: { value: target.value }
+    }
+  }
+}
+/*
+const actions = {
   addNewSemester(context, payload){
     context.commit('mutation', payload)
   },
@@ -30,4 +53,6 @@ const mutations = {
     context.commit('mutation', payload)
   }
 }
-export default mutations;
+export default actions;
+
+*/
