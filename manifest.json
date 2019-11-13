@@ -2,6 +2,10 @@
     "name": "GPA Calc",
     "short_name": "GPA Calc",
     "orientation": "portrait-primary",
+    "theme_color": "#87cfeb70",
+    "background_color": "#87cfeb70",
+    "start_url": "/index.html",
+    "display": "standalone",
     "icons": [
         {
             "src": "./icons/android-chrome-192x192.png",
@@ -23,9 +27,5 @@
             "sizes": "32x32",
             "type": "image/png"
         }
-    ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
-    "start_url": "/index.html",
-    "display": "standalone"
+    ]
 }
