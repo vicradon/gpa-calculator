@@ -1,89 +1,3 @@
-const semesterState = {
-  1: [{
-    name: 'year 1 first semester',
-    id: 1,
-    parentID: 1,
-    level: 100,
-    courses: [
-      { id: 1, name: 'MTH 101', grade: 'A', units: 4 },
-      { id: 2, name: 'ENG 103', grade: 'B', units: 1 },
-      { id: 3, name: 'GST 101', grade: 'D', units: 2 },
-    ],
-    tnu: '',
-    tgp: '',
-    gpa: ''
-  },
-  {
-    name: 'year 1 second semester',
-    id: 2,
-    parentID: 1,
-    level: 100,
-    courses: [
-      { id: 1, name: 'MTH 102', grade: 'A', units: 4 },
-      { id: 1, name: 'CHM 102', grade: 'B', units: 4 },
-      { id: 1, name: 'PHY 102', grade: 'C', units: 4 },
-    ],
-    tnu: '',
-    tgp: '',
-    gpa: ''
-  }],
-  2: [{
-    name: 'year 2 first semester',
-    id: 1,
-    parentID: 2,
-    level: 200,
-    courses: [
-      { id: 1, name: 'MTH 201', grade: 'A', units: 4 }
-    ],
-    tnu: '',
-    tgp: '',
-    gpa: ''
-  },
-  {
-    name: 'year 2 second semester',
-    id: 2,
-    parentID: 2,
-    level: 200,
-    courses: [
-      { id: 1, name: 'MTH 202', grade: 'A', units: 4 }
-    ],
-    tnu: '',
-    tgp: '',
-    gpa: ''
-  }],
-  currentLevelId: 1,
-  currentLevel: [
-    {
-      name: 'year 1 first semester',
-      id: 1,
-      parentID: 1,
-      level: 100,
-      courses: [
-        { id: 1, name: 'MTH 101', grade: 'A', units: 4 },
-        { id: 2, name: 'ENG 103', grade: 'B', units: 1 },
-        { id: 3, name: 'GST 101', grade: 'D', units: 2 },
-      ],
-      tnu: 7,
-      tgp: 28,
-      gpa: 4
-    },
-    {
-      name: 'year 1 second semester',
-      id: 2,
-      parentID: 1,
-      level: 100,
-      courses: [
-        { id: 1, name: 'MTH 102', grade: 'A', units: 4 },
-        { id: 2, name: 'CHM 102', grade: 'B', units: 4 },
-        { id: 3, name: 'PHY 102', grade: 'C', units: 4 },
-      ],
-      tnu: 12,
-      tgp: 44,
-      gpa: 3.67
-    }
-  ]
-}
-
 function updateDetails(courses) {
   function gtv(grade) {
     switch (grade) {
@@ -94,10 +8,103 @@ function updateDetails(courses) {
       case 'F': return 0;
     }
   }
-  let tnu = courses.map(x => x.units).reduce((x, y) => x + y)
-  let tgp = courses.map(x => gtv(x.grade) * x.units).reduce((x, y) => x + y);
-  let gpa = +(tgp / tnu).toFixed(2);
+  let tnu_arr1 = courses.map(x => x.units);
+  let tgp_arr1 = courses.map(x => gtv(x.grade) * x.units);
+
+  let tnu = '';
+  let tgp = '';
+  let gpa = '';
+
+  if (tnu_arr1.length && tgp_arr1.length) {
+    tnu = tnu_arr1.reduce((x, y) => x + y)
+    tgp = tgp_arr1.reduce((x, y) => x + y);
+    gpa = +(tgp / tnu).toFixed(2);
+  }
+  else {
+    tnu = ''
+    tgp = ''
+    gpa = ''
+  }
   return [tnu, tgp, gpa];
+}
+
+
+function handlePosition(state, updatedSemester, otherSemester, action) {
+  if (updatedSemester.id < otherSemester.id) {
+    return {
+      ...state,
+      [+action.payload.yearID]: [updatedSemester, otherSemester]
+    }
+  }
+  else {
+    return {
+      ...state,
+      [+action.payload.yearID]: [otherSemester, updatedSemester]
+    }
+  }
+}
+function getCnS(state, action) {
+  const semester = state[action.payload.yearID].filter(item => item.id === +action.payload.semesterID)[0];
+  const course = semester.courses.filter(course => course.id === +action.payload.courseID)[0];
+
+  return { semester: semester, course: course }
+}
+
+function handleAdd(state, action) {
+  const { semester, course } = getCnS(state, action);
+  let newID = 4;
+  if (semester.courses.length > 0) {
+    newID = semester.courses[semester.courses.length - 1].id + 1;
+  }
+  else {
+    newID = 1
+  }
+  const { name, grade, units } = action.payload.newCourse
+  const newCourse = { id: newID, name: name, grade: grade, units: +units }
+
+  const newCourses = [...semester.courses, newCourse];
+  const [tnu, tgp, gpa] = updateDetails(newCourses);
+  const updatedSemester = { ...semester, tnu: tnu, tgp: tgp, gpa: gpa, courses: newCourses }
+  const otherSemester = state[action.payload.yearID].filter(item => item.id !== +action.payload.semesterID)[0];
+
+  return {
+    semester: semester,
+    course: course,
+    updatedSemester: updatedSemester,
+    otherSemester: otherSemester
+  }
+}
+
+function handleEditDelete(state, action) {
+  const { semester, course } = getCnS(state, action);
+  [name, grade, units] = [course.name, course.grade, course.units];
+
+  const updatedCourses = semester.courses.filter(course => course.id !== +action.payload.courseID);
+
+  const [tnu, tgp, gpa] = updateDetails(updatedCourses);
+
+  const updatedSemester_e = {
+    ...semester,
+    tnu: tnu,
+    tgp: tgp,
+    gpa: gpa,
+    form: { name: name, grade: grade, units: units },
+    courses: updatedCourses
+  }
+  const updatedSemester_d = {
+    ...updatedSemester_e,
+    form: {
+      name: '', 
+      grade: '', 
+      units: ''
+    }
+  }
+  const otherSemester = state[action.payload.yearID].filter(item => item.id !== +action.payload.semesterID)[0];
+  return {
+    updatedSemester_e: updatedSemester_e,
+    updatedSemester_d: updatedSemester_d,
+    otherSemester: otherSemester
+  }
 }
 
 function semesterReducer(state = semesterState, action) {
@@ -109,26 +116,12 @@ function semesterReducer(state = semesterState, action) {
       }
 
     case 'ADD_NEW_COURSE':
-      const { semesterID, yearID, courseName, courseGrade, courseUnits } = action.payload;
-      const semester = state[yearID].filter(item => item.id === +semesterID)[0]
-      const newID = semester.courses[semester.courses.length - 1].id + 1;
-      const newCourse = { id: newID, name: courseName, grade: courseGrade, units: +courseUnits }
-      const [tnu, tgp, gpa] = updateDetails([...semester.courses, newCourse]);
-
-      updatedSemester = { ...semester, tnu: tnu, tgp: tgp, gpa: gpa, courses: [...semester.courses, newCourse] }
-      const otherSmester = state[yearID].filter(item => item.id !== +semesterID)[0];
-      if (updatedSemester.id < otherSmester.id) {
-        return {
-          ...state,
-          [+yearID]: [updatedSemester, otherSmester]
-        }
-      }
-      else {
-        return {
-          ...state,
-          [+yearID]: [otherSmester, updatedSemester]
-        }
-      }
+      return handlePosition(
+        state,
+        handleAdd(state, action).updatedSemester,
+        handleAdd(state, action).otherSemester,
+        action
+      )
 
     case 'UPDATE_CURRENT_LEVEL':
       const id = state.currentLevelId;
@@ -136,10 +129,20 @@ function semesterReducer(state = semesterState, action) {
         ...state,
         currentLevel: state[id]
       }
-
     case 'EDIT_COURSE':
-
-      log(action.payload.semesterID)
+      return handlePosition(
+        state,
+        handleEditDelete(state, action).updatedSemester_e,
+        handleEditDelete(state, action).otherSemester,
+        action
+      )
+    case 'DELETE_COURSE':
+      return handlePosition(
+        state,
+        handleEditDelete(state, action).updatedSemester_d,
+        handleEditDelete(state, action).otherSemester,
+        action
+      )
 
     default:
       return state

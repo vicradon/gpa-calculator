@@ -5,15 +5,13 @@ const displayLevel = id => {
   }
 }
 
-const addNewCourse = (semesterID, yearID, courseName, courseGrade, courseUnits) => {
+const addNewCourse = (semesterID, yearID, newCourse) => {
   return {
     type:'ADD_NEW_COURSE',
     payload:{
       semesterID:semesterID, 
-      yearID:yearID, 
-      courseName:courseName, 
-      courseGrade:courseGrade, 
-      courseUnits:courseUnits
+      yearID:yearID,
+      newCourse
     }
   }
 }

@@ -1,6 +1,6 @@
 const store = Redux.createStore(semesterReducer);
 
-function semesterTemplate(name, id, parentID, level, courses, gpa) {
+function semesterTemplate(name, id, parentID, level, courses, gpa, form) {
   const a = (id, name, grade, units) => `<div data-id = ${id} class="row">
   <p class="cell" data-title="Course Name">${name}</p>
   <p class="cell" data-title="Grade">${grade}</p>
@@ -19,7 +19,7 @@ function semesterTemplate(name, id, parentID, level, courses, gpa) {
 
       <div class="semester-details">
         <p contenteditable="true" class="semester-name">${name}</p>
-        <p class="year-of-study">${level}</p>
+        <p contenteditable="true" class="year-of-study">${level}</p>
       </div>
 
       <form class="semester-form">
@@ -27,11 +27,16 @@ function semesterTemplate(name, id, parentID, level, courses, gpa) {
         <div class="input-select">
 
 
-          <input id="semester-form-course" type="text" name="course" class="semester-form-input"
-            placeholder="Course Name">
+          <input 
+            id="semester-form-course" 
+            type="text" name="course" 
+            class="semester-form-input"
+            placeholder="Course Name"
+            value = ${form.name} 
+          >
 
           <select name="grade-select" id = "grade-select">
-            <option value="--">Select Grade</option>
+            <option selected disabled value = ${form.grade}>Grade</option>
             <option value="A">A</option>
             <option value="B">B</option>
             <option value="C">C</option>
@@ -39,8 +44,15 @@ function semesterTemplate(name, id, parentID, level, courses, gpa) {
             <option value="F">F</option>
           </select>
 
-          <input id="semester-form-credits" type="number" min = "1" name="credits" class="semester-form-input"
-            placeholder="Credits">
+          <input 
+            id="semester-form-credits" 
+            type="number" 
+            min = "1" 
+            name="credits" 
+            class="semester-form-input"
+            placeholder="Credits"
+            value = ${form.units}
+          >
         </div>
 
         <div class="form-actions">
@@ -75,7 +87,15 @@ function semesterTemplate(name, id, parentID, level, courses, gpa) {
 function render() {
   const currentLevel = store.getState().currentLevel;
   let a = '';
-  currentLevel.forEach(item => a += semesterTemplate(item.name, item.id, item.parentID, item.level, item.courses, item.gpa));
+  currentLevel.forEach(item => a += semesterTemplate(
+    item.name, 
+    item.id, 
+    item.parentID, 
+    item.level, 
+    item.courses, 
+    item.gpa, 
+    item.form
+  ));
   main.innerHTML = a;
 }
 render();
