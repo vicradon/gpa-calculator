@@ -34,7 +34,6 @@ header * {
 }
 #user-icon:hover, #show-chart:hover {
   color: var(--hover-color);
-  font-size: var(--hover-icon-font-size);
 }
 .user-actions {
   display: flex;
