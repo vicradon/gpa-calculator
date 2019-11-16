@@ -43,23 +43,37 @@ const semesterState = {
     parentID: 2,
     level: 200,
     courses: [
-      { id: 1, name: 'MTH 201', grade: 'A', units: 4 }
+      { id: 1, name: 'MTH 201', grade: 'A', units: 4 },
+      { id: 2, name: 'ENG 203', grade: 'D', units: 1 },
+      { id: 3, name: 'GST 201', grade: 'C', units: 2 },
     ],
-    tnu: '',
-    tgp: '',
-    gpa: ''
+    form: {
+      name: '',
+      grade: '',
+      units: ''
+    },
+    tnu: 7,
+    tgp: 22,
+    gpa: 3.14
   },
   {
     name: 'year 2 second semester',
     id: 2,
     parentID: 2,
-    level: 200,
+    level: 100,
     courses: [
-      { id: 1, name: 'MTH 202', grade: 'A', units: 4 }
+      { id: 1, name: 'MTH 202', grade: 'A', units: 4 },
+      { id: 2, name: 'CHM 202', grade: 'B', units: 4 },
+      { id: 3, name: 'PHY 202', grade: 'C', units: 4 },
     ],
-    tnu: '',
-    tgp: '',
-    gpa: ''
+    form: {
+      name: '',
+      grade: '',
+      units: ''
+    },
+    tnu: 12,
+    tgp: 56,
+    gpa: 4.67
   }],
   currentLevelId: 1,
   currentLevel: [

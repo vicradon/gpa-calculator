@@ -5,6 +5,7 @@ const displayLevel = id => {
   }
 }
 
+
 const addNewCourse = (semesterID, yearID, newCourse) => {
   return {
     type:'ADD_NEW_COURSE',
@@ -41,5 +42,11 @@ const deleteCourse = (courseID, semesterID, yearID) => {
       semesterID:semesterID, 
       yearID:yearID
     }
+  }
+}
+
+const addLevel = () => {
+  return {
+    type:'ADD_LEVEL'
   }
 }

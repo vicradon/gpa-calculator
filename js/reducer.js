@@ -74,6 +74,52 @@ function handleAdd(state, action) {
     otherSemester: otherSemester
   }
 }
+function handleAddLevel(state, action){
+  const { semester, course } = getCnS(state, action);
+  let levels = Object.keys(state).map(x => +x).filter(x => x / 1 === x);
+  let newID = 0;
+  if (levels.length > 0) {
+    newID = level[level.length -1] + 1;
+  }
+  else {
+    newID = 1
+  }
+  return newID;
+}
+function handleNewLevel(newID){
+  return [
+    {
+      name: 'Enter Semester name',
+      id: 1,
+      parentID: newID,
+      level: 'Enter level',
+      courses: [ ],
+      form: {
+        name: '',
+        grade: '',
+        units: ''
+      },
+      tnu: '',
+      tgp: '',
+      gpa: ''
+    },
+    {
+      name: 'Enter Semester name',
+      id: 2,
+      parentID: newID,
+      level: 'Enter level',
+      courses: [],
+      form: {
+        name: '',
+        grade: '',
+        units: ''
+      },
+      tnu: '',
+      tgp: '',
+      gpa: ''
+    }
+  ]
+}
 
 function handleEditDelete(state, action) {
   const { semester, course } = getCnS(state, action);
@@ -106,10 +152,14 @@ function handleEditDelete(state, action) {
     otherSemester: otherSemester
   }
 }
+function currentLevelFunc(levelID){
+  currentLevel.textContent = `Year ${levelID}`;
+}
 
 function semesterReducer(state = semesterState, action) {
   switch (action.type) {
     case 'DISPLAY_LEVEL':
+      currentLevelFunc(action.id)
       return {
         ...state,
         currentLevel: state[action.id]
@@ -143,6 +193,13 @@ function semesterReducer(state = semesterState, action) {
         handleEditDelete(state, action).otherSemester,
         action
       )
+    case 'ADD_LEVEL':
+      let id_a = handleAddLevel(state, action);
+      let lev_a = handleNewLevel(id_a)
+      return {
+        ...state,
+        id_a:lev_a
+      }
 
     default:
       return state

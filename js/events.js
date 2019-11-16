@@ -1,9 +1,25 @@
-ace(yearsPop, getClickedLevel);
+ace(mainLevels, getClickedLevel);
 ace(main, handleClick);
 const qs = (parentNode, childNode) => parentNode.querySelector(childNode);
 
-function getClickedLevel({ target }) {
-  const id = target.dataset.id;
+ace(exposeLevels, () => {
+  levelsModal.style.display = 'block'
+  $('html').style.overflow = 'hidden'
+});
+
+ace(closeLevelsButton, () => {
+  levelsModal.style.display = 'none'
+  $('html').style.overflow = 'visible'
+})
+
+ace(addLevelBut, () => {
+  log("cool")
+})
+
+function getClickedLevel(event) {
+  event.stopPropagation();
+  const id = event.target.dataset.id;
+  if (typeof(id) !== 'undefined')
   store.dispatch(displayLevel(id));
 }
 

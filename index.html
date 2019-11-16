@@ -36,20 +36,27 @@
       </div>
     </header>
 
-    <aside>
-      <div class="years-wrapper">
-        <i style="font-size: 35" id="expose-levels" class="material-icons add-icon">keyboard_arrow_right</i>
-        <div class="years-popup">
-          <div class="years-menu">
-            <p data-id="1" class="year1">Year 1</p>
-            <p data-id="2" class="year2">Year 2</p>
-            <p data-id="3" class="year3">Year 3</p>
-            <p data-id="4" class="year4">Year 4</p>
-            <p data-id="5" class="year5">Year 5</p>
-          </div>
-          <button class="add-year">Add Year</button>
+    <div class="levels-modal">
+      <div class="levels">
+        <span class="active-lev-cont level">
+          <span>Active Level</span><span class="level current-level"></span>
+        </span>
+        <span class="main-levels">
+
+        </span>
+        <div class="level add-level-form">
+          <input placeholder="Enter Level Name" class="add-level-inp" type="text" name="" id="">
+          <button class="add-level-but">Add New</button>
+        </div>
+        <div class="level close-levels">
+          <button class="close-levels-but">Close</button>
         </div>
       </div>
+    </div>
+
+
+    <aside>
+      <i style="font-size: 35" id="expose-levels" class="material-icons add-icon">keyboard_arrow_right</i>
       <i style="font-size: 35" class="material-icons add-icon">school</i>
       <i style="font-size: 35" class="material-icons add-icon">settings</i>
     </aside>
